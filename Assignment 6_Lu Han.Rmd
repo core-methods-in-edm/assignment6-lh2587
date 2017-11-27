@@ -1,0 +1,27 @@
+---
+title: "Assignment 6_LUHAN"
+author: "Lu Han"
+date: "2017年11月27日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(rpart)
+M1 <- read.csv("C:/Users/owner/Desktop/assignment6-lh2587-master/MOOC1.csv")
+M2 <- read.csv("C:/Users/owner/Desktop/assignment6-lh2587-master/MOOC2.csv")
+
+c.tree1 <- rpart(factor(certified)~., method="class", data=M1)
+printcp(c.tree1)
+post(c.tree1,file='',title='Tree1')
+
+
+M2$predict1 <- predict(c.tree1, M2, type = "class")
+M2$predict2 <- predict(c.tree2, M2, type = "class")
+
+c.tree2 <- prune(c.tree1, cp = 0.98545)
+post(c.tree2, file = "", title = "MOOC")
+
+table(M2$certified, M2$predict1)
+table(M2$certified, M2$predict2)
+######Error rates are the same
+```
